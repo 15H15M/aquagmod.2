@@ -12,6 +12,7 @@ bool _init_hack = 1;
 FILETIME sft[3];
 char* script = 0;
 int bla = 0;
+bool isOk = false;
 #ifndef trashout
 void func()
 {
@@ -83,6 +84,7 @@ void __fastcall hkPaintTraverse(void* ecx, void* edx, vgui::VPanel* vguiPanel, b
 				//another error processing
 				goto naxui;
 			}
+			GarrysMod::Lua::ILuaBase* lptr;
 			if (ft[2].dwHighDateTime != sft[2].dwHighDateTime || ft[2].dwLowDateTime != sft[2].dwLowDateTime)
 			{
 				sft[2].dwHighDateTime = ft[2].dwHighDateTime;
@@ -95,8 +97,7 @@ void __fastcall hkPaintTraverse(void* ecx, void* edx, vgui::VPanel* vguiPanel, b
 					goto naxui;
 				}
 
-				//cout << script << endl;
-				GarrysMod::Lua::ILuaBase* lptr;
+				
 				switch (HackVars::Visuals::ESP::LuaIntType)
 				{
 				case 0:
@@ -106,15 +107,37 @@ void __fastcall hkPaintTraverse(void* ecx, void* edx, vgui::VPanel* vguiPanel, b
 				case 1:
 					lptr = LuaShared()->GetLuaInterface(1); // //(Client)0, (Server)1, (Menu)2
 					break;
-				
+
 				case 2:
 					lptr = LuaShared()->GetLuaInterface(2); // //(Client)0, (Server)1, (Menu)2
 					break;
 
 				}
 
-				lptr->RunString("", "", script, 1, 1);
+				isOk = lptr->RunString("", "", script, 1, 1);
+				goto zaebis;
+				//cout << script << endl;
 			}
+			if (isOk)
+			{
+				switch (HackVars::Visuals::ESP::LuaIntType)
+				{
+				case 0:
+					lptr = LuaShared()->GetLuaInterface(0); // //(Client)0, (Server)1, (Menu)2
+					break;
+
+				case 1:
+					lptr = LuaShared()->GetLuaInterface(1); // //(Client)0, (Server)1, (Menu)2
+					break;
+
+				case 2:
+					lptr = LuaShared()->GetLuaInterface(2); // //(Client)0, (Server)1, (Menu)2
+					break;
+
+				}
+				isOk = lptr->RunString("", "", script, 1, 1);
+			}
+			zaebis:
 			CloseHandle(file);
 		}
 		goto kydanibyd;

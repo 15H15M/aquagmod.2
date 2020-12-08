@@ -38,7 +38,7 @@ namespace H
 			surface()->DrawFilledRect(x, y, x + w, y + h);
 			surface()->DrawSetColor(255, 255, 255, 255);
 		}
-
+		wchar_t* wc = (wchar_t*)malloc(516);
 		void Drawtext(const char* text = "Sample Text", int font = 1, int x = 0, int y = 0, Color color = Color(255,255/2,0,255))
 		{
 //#define mxsz 256
@@ -49,13 +49,13 @@ namespace H
 				text = "Error:TooManySymbols";
 				cSize = sizeof("Error:TooManySymbols");
 			}*/
-			wchar_t wc[256] = L"";
+			
 			//mbstowcs(wc, text, cSize);
-			OemToCharBuff(text, wc, cSize);
+			OemToCharBuff(text, (LPWSTR)wc, cSize);
 			surface()->DrawSetTextFont(font);
 			surface()->DrawSetTextColor(color);
 			surface()->DrawSetTextPos(x, y);
-			surface()->DrawPrintText(wc, cSize);
+			surface()->DrawPrintText((LPWSTR)wc, cSize);
 			//surface()->DrawSetTextColor(255,255,255,255);
 			//delete wc;
 		}

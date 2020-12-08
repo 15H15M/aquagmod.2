@@ -34,14 +34,15 @@ namespace HackVars
 	namespace Visuals
 	{
 		bool Enabled;
+		float DrawDelay = 0.02;
 		bool Hitmarker;
 		bool Nightmode;
 		bool WireframeHands;
 		bool TargetObsInfo;
-		bool TimeToScan;
-		char tableName[50];
+		//bool TimeToScan;
+		//char tableName[50];
 		int	 tableAddr;
-		char tableType[50];
+		//char tableType[50];
 		int  int_value;
 		namespace Aimbot
 		{
@@ -72,9 +73,10 @@ namespace HackVars
 			bool PlayerDrawHealthBar;
 			float fPBoxColor[4] = { 1, 1, 1, 1 };
 			Color PBoxColor = Color(255, 255, 255, 255);
-
-			int ScanType;
-			
+#define ENTITY_MAX 100
+#define ENTITY_NAME_MAX 256
+			char  wtf[ENTITY_MAX][ENTITY_NAME_MAX] = {};
+			char meow[ENTITY_MAX][ENTITY_NAME_MAX] = {};
 
 			
 			bool PlayerChamsEnabled;

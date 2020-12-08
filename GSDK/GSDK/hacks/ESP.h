@@ -1,5 +1,8 @@
 player_info_t* player_info = (player_info_t*)malloc(sizeof(player_info_t));
 //C_BasePlayer* localplayer = (C_BasePlayer*)malloc(sizeof(C_BasePlayer));
+
+
+
 namespace H
 {
 	namespace ESP
@@ -219,7 +222,7 @@ namespace H
 					}
 				}
 
-				if (HackVars::Visuals::ESP::PlayerDrawname)
+				/*if (HackVars::Visuals::ESP::PlayerDrawname)
 				{
 					
 					if (engine()->GetPlayerInfo(Ent->entIndex(), player_info))
@@ -227,50 +230,50 @@ namespace H
 						H::Draw::Drawtext(player_info->name, HackVars::Fonts::DefaultFont, x + w + 2, y + iY);
 						iY += 15;
 					}
-				}
+				}*/
 
-				float health = Ent->GetHealth();
+				//float health = Ent->GetHealth();
 
-				int Red = 255 - (health*2.55);
-				int Green = health*2.55;
+				//int Red = 255 - (health*2.55);
+				//int Green = health*2.55;
 
-				if (Ent->GetHealth() > 0 && HackVars::Visuals::ESP::PlayerDrawHealth)
-				{
-					H::Draw::Drawtext(std::to_string(Ent->GetHealth()).c_str(), HackVars::Fonts::DefaultFont, x + w + 2, y + iY, Color(Red, Green, 0, 255));
-					iY += 15;
-				}
+				//if (HackVars::Visuals::ESP::PlayerDrawname && HackVars::Visuals::ESP::PlayerDrawHealth)
+				//{
+				//	H::Draw::Drawtext(std::to_string(Ent->GetHealth()).c_str(), HackVars::Fonts::DefaultFont, x + w + 2, y + iY, Color(Red, Green, 0, 255));
+				//	iY += 15;
+				//}
 
-				if (Ent->GetHealth() > 0 && HackVars::Visuals::ESP::PlayerDrawHealthBar)
-				{
-					float hh = (h);
-					float offset = (hh / 4.f) + 5;
-					float w = hh / 64.f;
-					UINT hp = hh - (UINT)((hh * health) / 100); // Percentage
+			//	if (Ent->GetHealth() > 0 && HackVars::Visuals::ESP::PlayerDrawHealthBar)
+			//	{
+			//		float hh = (h);
+			//		float offset = (hh / 4.f) + 5;
+			//		float w = hh / 64.f;
+			//		UINT hp = hh - (UINT)((hh * health) / 100); // Percentage
 
-					H::Draw::DrawOutlineRect(x, y, w, h, Color(0, 0, 0, 0));
-					H::Draw::DrawOutlineRect(x + 1, y + 1, w - 2, h - 2, Color(0, 0, 0, 0));
-				    //H::Draw::Drawtext("", HackVars::Fonts::DefaultFont, x + w + 2, y + iY, Color(Red, Green, 0, 255));
-					iY += 15;
+			//		H::Draw::DrawOutlineRect(x, y, w, h, Color(0, 0, 0, 0));
+			//		H::Draw::DrawOutlineRect(x + 1, y + 1, w - 2, h - 2, Color(0, 0, 0, 0));
+			//	    //H::Draw::Drawtext("", HackVars::Fonts::DefaultFont, x + w + 2, y + iY, Color(Red, Green, 0, 255));
+			//		iY += 15;
 
-					H::Draw::DrawOutlineRect((x - 6) - 1, y - 1, 3, hh + 2, Color(0, 0, 0, 255));
-					H::Draw::DrawLine((x - 6), y + hp, (x - 6), y + hh, Color(Red, Green, 0, 255));
-				}
-			}
-			else if(Ent->UsesLua())
-			{
-				if (HackVars::Visuals::ESP::LuaBox)
-				{
-					H::Draw::DrawLine(left, bottom, left, top, HackVars::Visuals::ESP::LBoxColor);
-					H::Draw::DrawLine(left, top, right, top, HackVars::Visuals::ESP::LBoxColor);
-					H::Draw::DrawLine(right, top, right, bottom, HackVars::Visuals::ESP::LBoxColor);
-					H::Draw::DrawLine(right, bottom, left, bottom, HackVars::Visuals::ESP::LBoxColor);
-				}
-				if(HackVars::Visuals::ESP::LuaDrawName)
-					H::Draw::Drawtext(Ent->GetLuaName(), HackVars::Fonts::DefaultFont, left, top + 2);
-				
-				if (Ent->GetHealth() > 0 && HackVars::Visuals::ESP::LuaDrawHealth)
-					H::Draw::Drawtext(std::to_string(Ent->GetHealth()).c_str(), HackVars::Fonts::DefaultFont, left, top + 17, Color(255, 0, 0, 255));
-				
+			//		H::Draw::DrawOutlineRect((x - 6) - 1, y - 1, 3, hh + 2, Color(0, 0, 0, 255));
+			//		H::Draw::DrawLine((x - 6), y + hp, (x - 6), y + hh, Color(Red, Green, 0, 255));
+			//	}
+			//}
+			//else if(Ent->UsesLua())
+			//{
+			//	if (HackVars::Visuals::ESP::LuaBox)
+			//	{
+			//		H::Draw::DrawLine(left, bottom, left, top, HackVars::Visuals::ESP::LBoxColor);
+			//		H::Draw::DrawLine(left, top, right, top, HackVars::Visuals::ESP::LBoxColor);
+			//		H::Draw::DrawLine(right, top, right, bottom, HackVars::Visuals::ESP::LBoxColor);
+			//		H::Draw::DrawLine(right, bottom, left, bottom, HackVars::Visuals::ESP::LBoxColor);
+			//	}
+			//	if(HackVars::Visuals::ESP::LuaDrawName)
+			//		H::Draw::Drawtext(Ent->GetLuaName(), HackVars::Fonts::DefaultFont, left, top + 2);
+			//	
+			//	if (Ent->GetHealth() > 0 && HackVars::Visuals::ESP::LuaDrawHealth)
+			//		H::Draw::Drawtext(std::to_string(Ent->GetHealth()).c_str(), HackVars::Fonts::DefaultFont, left, top + 17, Color(255, 0, 0, 255));
+			//	
 			}
 
 			

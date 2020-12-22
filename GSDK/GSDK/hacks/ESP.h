@@ -115,7 +115,7 @@ namespace H
 			}
 		}
 #endif
-		void DrawBoundingBox(BaseEntity* Ent)
+		void DrawBoundingBox(BaseEntity* Ent, bool ColorType = 0)
 		{
 			Vector Pos = Ent->GetRenderOrigin();
 			auto& frame = *reinterpret_cast<matrix3x4_t*>(reinterpret_cast<uintptr_t>(Ent) + 0x308);
@@ -183,15 +183,16 @@ namespace H
 			w -= ((right - left) / 8) * 2;
 
 			
-			if(Ent->IsPlayer() && Ent->IsAlive())
+			//if(Ent->IsPlayer() && Ent->IsAlive())
 			{ 
 				
-				if (HackVars::Visuals::ESP::PlayerBox)
+				//if (HackVars::Visuals::ESP::PlayerBox)
 				{
+					//if (!ColorType)
 					if (HackVars::Visuals::ESP::PlayerBoxStyle == 0)
 					{
-						H::Draw::DrawOutlineRect(x, y, w, h, HackVars::Visuals::ESP::fPBoxColor);
-						H::Draw::DrawOutlineRect(x + 1, y + 1, w - 2, h - 2, HackVars::Visuals::ESP::fPBoxColor);
+						H::Draw::DrawOutlineRect(x, y, w, h, ColorType ? HackVars::Visuals::ESP::EntityBoxColor : HackVars::Visuals::ESP::fPBoxColor);
+						H::Draw::DrawOutlineRect(x + 1, y + 1, w - 2, h - 2, ColorType ? HackVars::Visuals::ESP::EntityBoxColor : HackVars::Visuals::ESP::fPBoxColor);
 					}
 					else if (HackVars::Visuals::ESP::PlayerBoxStyle == 1)
 					{
@@ -210,15 +211,15 @@ namespace H
 						H::Draw::DrawOutlineRect(x + w - 1, y, 1, HorzLine, Color(10, 10, 10, 150));
 						H::Draw::DrawOutlineRect(x + w - 1, y + h - HorzLine, 1, HorzLine, Color(10, 10, 10, 150));
 
-						H::Draw::DrawOutlineRect(x, y, VertLine, 1, HackVars::Visuals::ESP::fPBoxColor);
-						H::Draw::DrawOutlineRect(x + w - VertLine, y, VertLine, 1, HackVars::Visuals::ESP::fPBoxColor);
-						H::Draw::DrawOutlineRect(x, y + h, VertLine, 1, HackVars::Visuals::ESP::fPBoxColor);
-						H::Draw::DrawOutlineRect(x + w - VertLine, y + h, VertLine, 1, HackVars::Visuals::ESP::fPBoxColor);
+						H::Draw::DrawOutlineRect(x, y, VertLine, 1, ColorType ? HackVars::Visuals::ESP::EntityBoxColor : HackVars::Visuals::ESP::fPBoxColor);
+						H::Draw::DrawOutlineRect(x + w - VertLine, y, VertLine, 1, ColorType ? HackVars::Visuals::ESP::EntityBoxColor : HackVars::Visuals::ESP::fPBoxColor);
+						H::Draw::DrawOutlineRect(x, y + h, VertLine, 1, ColorType ? HackVars::Visuals::ESP::EntityBoxColor : HackVars::Visuals::ESP::fPBoxColor);
+						H::Draw::DrawOutlineRect(x + w - VertLine, y + h, VertLine, 1, ColorType ? HackVars::Visuals::ESP::EntityBoxColor : HackVars::Visuals::ESP::fPBoxColor);
 
-						H::Draw::DrawOutlineRect(x, y, 1, HorzLine, HackVars::Visuals::ESP::fPBoxColor);
-						H::Draw::DrawOutlineRect(x, y + h - HorzLine, 1, HorzLine, HackVars::Visuals::ESP::fPBoxColor);
-						H::Draw::DrawOutlineRect(x + w, y, 1, HorzLine, HackVars::Visuals::ESP::fPBoxColor);
-						H::Draw::DrawOutlineRect(x + w, y + h - HorzLine, 1, HorzLine, HackVars::Visuals::ESP::fPBoxColor);
+						H::Draw::DrawOutlineRect(x, y, 1, HorzLine, ColorType ? HackVars::Visuals::ESP::EntityBoxColor : HackVars::Visuals::ESP::fPBoxColor);
+						H::Draw::DrawOutlineRect(x, y + h - HorzLine, 1, HorzLine, ColorType ? HackVars::Visuals::ESP::EntityBoxColor : HackVars::Visuals::ESP::fPBoxColor);
+						H::Draw::DrawOutlineRect(x + w, y, 1, HorzLine, ColorType ? HackVars::Visuals::ESP::EntityBoxColor : HackVars::Visuals::ESP::fPBoxColor);
+						H::Draw::DrawOutlineRect(x + w, y + h - HorzLine, 1, HorzLine, ColorType ? HackVars::Visuals::ESP::EntityBoxColor : HackVars::Visuals::ESP::fPBoxColor);
 					}
 				}
 

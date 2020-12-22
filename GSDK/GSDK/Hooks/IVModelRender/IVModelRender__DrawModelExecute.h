@@ -41,6 +41,11 @@ void __fastcall hookDrawModelExecute(IVModelRender* modelrender, void* edx, Draw
 					ModelRender()->ForcedMaterialOverride(WireFrame);
 				orgDrawModelExecute(modelrender, state, pInfo, pCustomBoneToWorld);
 			}
+			//TODO: entity chams
+			//if (HackVars::Visuals::ESP::EntityChams)
+			//{
+
+			//}
 			if (HackVars::Visuals::ESP::PlayerChamsEnabled)
 			{
 				if (HackVars::Visuals::ESP::PlayerChamsStyle == 0)

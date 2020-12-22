@@ -335,7 +335,10 @@ kydanibyd:
 		else if (HackVars::Visuals::ESP::PlayerDrawname)
 			lptr->RunString("", "", nametag, 1, 1);
 
-	for (int i = 0; i < cliententitylist()->GetHighestEntityIndex(); i++)
+	for (int i = 0; i < ENTITY_MAX; i++)
+		memset(HackVars::Visuals::ESP::wtf[i], 0, 256);
+
+	for (int i = 0; i <= cliententitylist()->GetHighestEntityIndex(); i++)
 	{
 
 		BaseEntity* ent = (BaseEntity*)cliententitylist()->GetClientEntity(i);
@@ -345,8 +348,44 @@ kydanibyd:
 		if (ent->IsClientCreated())
 			H::ESP::DrawSomeExtraInfo(ent);
 #endif
-		if ((ent->UsesLua() && !ent->hasowner() && (HackVars::Visuals::ESP::LuaESP && HackVars::Visuals::ESP::LuaBox || HackVars::Visuals::ESP::LuaESP && HackVars::Visuals::ESP::LuaDrawHealth || HackVars::Visuals::ESP::LuaESP && HackVars::Visuals::ESP::LuaDrawName)))
-			H::ESP::DrawBoundingBox(ent);
+
+		
+		for (int i = 0; i < ENTITY_MAX; i++)
+		{
+			if (!strcmp(HackVars::Visuals::ESP::meow[i], ent->GetLuaName()))
+			{
+				goto blahblah;
+			}
+		}
+		for (int i = 0; i < ENTITY_MAX; i++)
+		{
+			if (HackVars::Visuals::ESP::wtf[i][0] == 0)
+			{
+				memcpy_s(HackVars::Visuals::ESP::wtf[i], 256, ent->GetLuaName(), 256);
+
+				break;
+			}
+		}
+		blahblah:
+		
+		if (HackVars::Visuals::ESP::EntityBox)
+			for (int i = 0; i < ENTITY_MAX; i++)
+				if (*(char*)ent->GetLuaName() != 0 && !strcmp(ent->GetLuaName(), HackVars::Visuals::ESP::meow[i]))
+				{	
+					//CVar()->ConsolePrintf("%d -- xui\n", *(char*)ent->GetLuaName());
+					H::ESP::DrawBoundingBox(ent,true);
+				}
+
+		if (ent->IsPlayer() && ent->IsAlive())
+		{
+			
+
+			//if(*(char*)player->Lua_GetLuaClass() != '\0')
+			//CVar()->ConsolePrintf("%s\n", player->Lua_GetLuaClass()); -- разобраться
+
+			if ((ent->UsesLua() && !ent->hasowner() && HackVars::Visuals::ESP::PlayerBox && (HackVars::Visuals::ESP::LuaESP && HackVars::Visuals::ESP::LuaBox || HackVars::Visuals::ESP::LuaESP && HackVars::Visuals::ESP::LuaDrawHealth || HackVars::Visuals::ESP::LuaESP && HackVars::Visuals::ESP::LuaDrawName)))
+				H::ESP::DrawBoundingBox(ent);
+		}
 	}
 	
 
@@ -354,18 +393,7 @@ kydanibyd:
 		{
 
 			BaseEntity* player = (BaseEntity*)cliententitylist()->GetClientEntity(i);
-			/*
-			for (int i = 0; i < ENTITY_MAX; i++)
-			{
-				if (HackVars::Visuals::ESP::wtf[i][0] == '\0')
-				{
-					memcpy_s(HackVars::Visuals::ESP::wtf[i], 256, player->getname, 256);
-					break;
-				}
-			}
-			*/
-			//if(*(char*)player->Lua_GetLuaClass() != '\0')
-			//CVar()->ConsolePrintf("%s\n", player->Lua_GetLuaClass()); -- разобраться
+			
 
 			if (!player || player->IsDormant())
 				continue;
@@ -373,14 +401,13 @@ kydanibyd:
 			if (player == LocalPlayer || !player->IsAlive())
 				continue;
 
-
-
 			if (HackVars::Visuals::ESP::EnemyOnly && player->GetTeam() == LocalPlayer->GetTeam())
 				continue;
 
 			if (player->ShouldDraw()) {
-				if (HackVars::Visuals::ESP::PlayerBox || HackVars::Visuals::Enabled && HackVars::Visuals::ESP::PlayerDrawHealth || HackVars::Visuals::Enabled && HackVars::Visuals::ESP::PlayerDrawHealth)
-					H::ESP::DrawBoundingBox(player);
+				if (HackVars::Visuals::Enabled && HackVars::Visuals::ESP::PlayerBox || HackVars::Visuals::Enabled && HackVars::Visuals::ESP::PlayerDrawHealth)
+					if (player->IsPlayer())
+						H::ESP::DrawBoundingBox(player);
 			}
 		}
 	}

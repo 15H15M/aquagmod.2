@@ -34,7 +34,7 @@ namespace HackVars
 	namespace Visuals
 	{
 		bool Enabled;
-		float DrawDelay = 0.02;
+		float DrawDelay = 0.01;
 		bool Hitmarker;
 		bool Nightmode;
 		bool WireframeHands;
@@ -72,12 +72,15 @@ namespace HackVars
 			bool PlayerDrawHealth;
 			bool PlayerDrawHealthBar;
 			float fPBoxColor[4] = { 1, 1, 1, 1 };
+			float EntityBoxColor[4] = { 1, 1, 1, 1 };
 			Color PBoxColor = Color(255, 255, 255, 255);
 #define ENTITY_MAX 100
 #define ENTITY_NAME_MAX 256
 			char  wtf[ENTITY_MAX][ENTITY_NAME_MAX] = {};
 			char meow[ENTITY_MAX][ENTITY_NAME_MAX] = {};
 
+			bool EntityChams;
+			bool EntityBox;
 			
 			bool PlayerChamsEnabled;
 			bool PlayerXQZ;

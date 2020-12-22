@@ -168,54 +168,63 @@ namespace Menu
 
 					ImGui::Text("Chams Style");
 					ImGui::Combo("##chamsstyle", &HackVars::Visuals::ESP::PlayerChamsStyle, ChamStyles, ARRAYSIZE(ChamStyles));
-
 					ImGui::Checkbox("XQZ", &HackVars::Visuals::ESP::PlayerXQZ);
 					ImGui::SameLine();
 					ImGui::MyColorEdit4("###chamsxqzcolor", HackVars::Visuals::ESP::fNVPlayerChamsColor, ImGuiColorEditFlags_Alpha | ImGuiColorEditFlags_NoSliders);
-					//ImGui::BeginChildNew("###entity list", ImVec2(100, 80), true, ImGuiWindowFlags_ChildZeus);
-					//ImGui::Columns();
-					//for (int i = 0; i < ENTITY_MAX; i++)
-					//{
-					//	if (HackVars::Visuals::ESP::wtf[i][0] == '\0')
-					//		continue;
-					//	if (ImGui::Selectable(HackVars::Visuals::ESP::wtf[i]))
-					//		for (int ia = 0; ia < ENTITY_MAX; ia++)
-					//		{
-					//			if (HackVars::Visuals::ESP::meow[ia][0] == '\0')
-					//			{
-					//				for (int ib = 0; ib < ENTITY_NAME_MAX; ib++)
-					//				{
-					//					HackVars::Visuals::ESP::meow[ia][ib] = HackVars::Visuals::ESP::wtf[i][ib];
-					//					HackVars::Visuals::ESP::wtf[i][ib] = '\0';
-					//				}
-					//				break;
-					//			}
-					//		}						//meow[i] = wtf[i];
-					//}
-					//ImGui::EndChild();
-					//ImGui::SameLine();
-					//ImGui::BeginChildNew("###entity esp", ImVec2(100, 80), true, ImGuiWindowFlags_ChildZeus);
-					//ImGui::NextColumn();
-					//for (int i = 0; i< ENTITY_MAX; i++)
-					//{
-					//	if (HackVars::Visuals::ESP::meow[i][0] == '\0')
-					//		continue;
-					//	if(ImGui::Selectable(HackVars::Visuals::ESP::meow[i]))
-					//		for (int ia = 0; ia < ENTITY_MAX; ia++)
-					//		{
-					//			if (HackVars::Visuals::ESP::wtf[ia][0] == '\0')
-					//			{
-					//				for (int ib = 0; ib < ENTITY_NAME_MAX; ib++)
-					//				{
-					//					HackVars::Visuals::ESP::wtf[ia][ib] = HackVars::Visuals::ESP::meow[i][ib];
-					//					HackVars::Visuals::ESP::meow[i][ib] = '\0';
-					//				}
-					//				break;
-					//			}
-					//		}
-					//}
-					//ImGui::Columns();
-					//ImGui::EndChild();
+
+					//ImGui::Checkbox("Entity chams", &HackVars::Visuals::ESP::EntityChams);
+					ImGui::Checkbox("Entity box", &HackVars::Visuals::ESP::EntityBox);
+					ImGui::SameLine();
+					ImGui::MyColorEdit4("###EntityBoxColor", HackVars::Visuals::ESP::EntityBoxColor, ImGuiColorEditFlags_Alpha | ImGuiColorEditFlags_NoSliders);
+					ImGui::Separator();
+					ImGui::Separator();
+					ImGui::Separator();
+					//ImGui::Spacing();
+					ImGui::BeginChildNew("entity list", ImVec2(150, 100), true, ImGuiWindowFlags_ChildZeus);
+					ImGui::Columns();
+					for (int i = 0; i < ENTITY_MAX; i++)
+					{
+						if (HackVars::Visuals::ESP::wtf[i][0] == '\0')
+							continue;
+						if (ImGui::Selectable(HackVars::Visuals::ESP::wtf[i]))
+							for (int ia = 0; ia < ENTITY_MAX; ia++)
+							{
+								if (HackVars::Visuals::ESP::meow[ia][0] == '\0')
+								{
+									for (int ib = 0; ib < ENTITY_NAME_MAX; ib++)
+									{
+										HackVars::Visuals::ESP::meow[ia][ib] = HackVars::Visuals::ESP::wtf[i][ib];
+										HackVars::Visuals::ESP::wtf[i][ib] = '\0';
+									}
+									break;
+								}
+							}						//meow[i] = wtf[i];
+					}
+					ImGui::EndChild();
+					ImGui::SameLine();
+					ImGui::BeginChildNew("entity esp", ImVec2(150, 100), true, ImGuiWindowFlags_ChildZeus);
+					ImGui::NextColumn();
+					for (int i = 0; i< ENTITY_MAX; i++)
+					{
+						if (HackVars::Visuals::ESP::meow[i][0] == '\0')
+							continue;
+						if(ImGui::Selectable(HackVars::Visuals::ESP::meow[i]))
+							for (int ia = 0; ia < ENTITY_MAX; ia++)
+							{
+								if (HackVars::Visuals::ESP::wtf[ia][0] == '\0')
+								{
+									for (int ib = 0; ib < ENTITY_NAME_MAX; ib++)
+									{
+										HackVars::Visuals::ESP::wtf[ia][ib] = HackVars::Visuals::ESP::meow[i][ib];
+										HackVars::Visuals::ESP::meow[i][ib] = '\0';
+									}
+									break;
+								}
+							}
+					}
+					ImGui::Columns();
+					ImGui::EndChild();
+
 				}
 				ImGui::EndChild();
 
